@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log("Script loaded");
 
-    fetch('/data')  // Fetch data from your server
+    fetch('https://antoninapopova.github.io/bubble-chart-data/data.json')  // Use the full URL
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
