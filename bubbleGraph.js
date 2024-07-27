@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(data => {
             console.log("Data received:", data);  // Check what data is received
+            
+            // Log the data before attempting to bind it to the DOM elements
+            console.log("Binding data:", data);
+            
             const bubbles = canvas.selectAll(".bubble")
                 .data(data)  // Use the fetched data
                 .enter()
@@ -27,12 +31,4 @@ document.addEventListener('DOMContentLoaded', function () {
                 .on("click", function(event, d) {
                     d3.select(this).transition()
                         .duration(500)
-                        .attr("r", d.size * 1.5);  // Enlarge on click
-
-                    alert(`Size: ${d.size}, Order: ${d.order}`);  // Display data
-                });
-        })
-        .catch(error => {
-            console.error('Error fetching data:', error);
-        });
-});
+                        .attr("r", d.size​⬤
