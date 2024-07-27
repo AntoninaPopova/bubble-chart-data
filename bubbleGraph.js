@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log("Script loaded");
 
-    fetch('https://antoninapopova.github.io/bubble-chart-data/data.json')  // Use the full URL
+    fetch('https://antoninapopova.github.io/bubble-chart-data/data.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -14,21 +14,29 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json();
         })
         .then(data => {
-            console.log("Data received:", data);  // Check what data is received
+            console.log("Data received:", data);
             
-            // Log the data before attempting to bind it to the DOM elements
-            console.log("Binding data:", data);
-            
+            // Access the 'Sheet1' property of the data object
+            const bubblesData = data.Sheet1;
+            console.log("Binding data:", bubblesData);
+
             const bubbles = canvas.selectAll(".bubble")
-                .data(data)  // Use the fetched data
+                .data(bubblesData)  // Use the fetched data
                 .enter()
                 .append("circle")
                 .attr("class", "bubble")
-                .attr("cx", d => d.x)  // Ensure your Excel data has 'x' and 'y' columns
+                .attr("cx", d => d.x)
                 .attr("cy", d => d.y)
                 .attr("r", d => d.size)
                 .style("fill", "blue")
                 .on("click", function(event, d) {
                     d3.select(this).transition()
                         .duration(500)
-                        .attr("r", d.size​⬤
+                        .attr("r", d.size * 1.5);  // Enlarge on click
+                    alert(`Size: ${d.size}, Order: ${d.order}`);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+});
